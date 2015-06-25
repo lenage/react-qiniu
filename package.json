@@ -1,0 +1,42 @@
+{
+  "name": "react-qiniu",
+  "version": "0.0.1",
+  "description": "A React Component to upload file to Qiniu ",
+  "main": "index.js",
+  "scripts": {
+      "test": "jest",
+      "lint": "eslint ./; true"
+  },
+  "keywords": [
+    "react-component",
+    "react",
+    "qiniu",
+    "upload",
+    "drag",
+    "drop"
+  ],
+  "author": "Yuan He <yuan@liulishuo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "superagent": "^1.2.0",
+    "superagent-bluebird-promise": "^2.0.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^3.1.18",
+    "babel-jest": "^5.3.0",
+    "eslint": "^0.23.0",
+    "eslint-plugin-react": "^2.5.2",
+    "jest-cli": "^0.4.13",
+    "react": "^0.13.3"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+        "<rootDir>/node_modules/react"
+    ],
+    "testPathDirs": [
+        "<rootDir>"
+    ]
+  }
+}
