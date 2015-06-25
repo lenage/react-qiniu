@@ -1,22 +1,28 @@
 /*global URL */
 
 var React = require('react');
+var Promise = require('bluebird');
+var request = require('superagent-bluebird-promise');
 
 var Dropzone = React.createClass({
     // based on https://github.com/paramaggarwal/react-dropzone
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
+        token: React.PropTypes.string.isRequired,
         size: React.PropTypes.number,
         style: React.PropTypes.object,
         supportClick: React.PropTypes.bool,
         accept: React.PropTypes.string,
-        multiple: React.PropTypes.bool
+        multiple: React.PropTypes.bool,
+        // Qiniu
+        uploadUrl: React.PropTypes.string
     },
 
     getDefaultProps: function() {
         return {
             supportClick: true,
-            multiple: true
+            multiple: true,
+            uploadUrl: 'http://upload.qiniu.com/'
         };
     },
 
@@ -59,6 +65,7 @@ var Dropzone = React.createClass({
 
         for (var i = 0; i < maxFiles; i++) {
             files[i].preview = URL.createObjectURL(files[i]);
+            files[i].uploadPromise = this.upload(files[i]);
         }
 
         if (this.props.onDrop) {
@@ -79,8 +86,24 @@ var Dropzone = React.createClass({
         fileInput.click();
     },
 
-    render: function() {
+    upload: function(file) {
+        if (!file || file.size === 0) return null;
+        var url;
+        var promise = request
+            .post(this.props.uploadUrl)
+            .field('key', file.preview.split('/')[1])
+            .field('accept', this.props.accept)
+            .field('token', this.props.token)
+            .field('x:filename', file.name)
+            .field('x:size', file.size)
+            .attach('file', file, file.name)
+            .set('Accept', 'application/json')
+            .on('progress',  function (e) { file.progress = e.percent;})
+            .promise()
+        return promise;
+    },
 
+    render: function() {
         var className = this.props.className || 'dropzone';
         if (this.state.isDragActive) {
             className += ' active';

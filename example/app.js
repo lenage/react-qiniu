@@ -6,11 +6,12 @@ import Dropzone from '../index';
 const ReactQiniuExample = React.createClass({
     getInitialState () {
         return {
-            files: []
+            files: [],
+            token: 'YOUR_UPLOAD_TOKEN'
         };
     },
 
-    onDrop: function (files) {
+    onDrop (files) {
         console.log('Received files: ', files);
         this.setState({
             files: files
@@ -30,7 +31,6 @@ const ReactQiniuExample = React.createClass({
             <ul>
             {[].map.call(files, function (f, i) {
                 var preview = '';
-
                 if (/image/.test(f.type)) {
                     preview = <img src={f.preview} />;
                 } else if (/audio/.test(f.type)) {
@@ -44,12 +44,13 @@ const ReactQiniuExample = React.createClass({
     },
 
     render () {
-        var styles = { padding: 30}
+        var styles = { padding: 30};
+        var inputStyles = { marginTop: 30, width: 500};
         return (
             <div className="react-qiniu-example">
-            <Dropzone onDrop={this.onDrop} size={150}>
-              <div style={styles}> Try dropping some files here, or click files to upload. </div>
-            </Dropzone>
+              <Dropzone onDrop={this.onDrop} size={150} token={this.state.token}>
+                <div style={styles}> Try dropping some files here, or click files to upload. </div>
+              </Dropzone>
             {this.showFiles()}
             </div>
         )

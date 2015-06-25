@@ -4,8 +4,8 @@
   "description": "A React Component to upload file to Qiniu ",
   "main": "index.js",
   "scripts": {
-      "test": "jest",
-      "lint": "eslint ./; true"
+    "test": "jest",
+    "lint": "eslint ./; true"
   },
   "keywords": [
     "react-component",
@@ -33,10 +33,10 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
-        "<rootDir>/node_modules/react"
+      "<rootDir>/node_modules/react"
     ],
     "testPathDirs": [
-        "<rootDir>"
+      "<rootDir>"
     ]
   }
 }
