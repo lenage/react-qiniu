@@ -4,7 +4,7 @@ var React = require('react');
 var Promise = require('bluebird');
 var request = require('superagent-bluebird-promise');
 
-var Dropzone = React.createClass({
+var ReactQiniu = React.createClass({
     // based on https://github.com/paramaggarwal/react-dropzone
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
@@ -125,4 +125,4 @@ var Dropzone = React.createClass({
 
 });
 
-module.exports = Dropzone;
+module.exports = ReactQiniu;
