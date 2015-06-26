@@ -92,7 +92,6 @@ var ReactQiniu = React.createClass({
         var promise = request
             .post(this.props.uploadUrl)
             .field('key', file.preview.split('/')[1])
-            .field('accept', this.props.accept)
             .field('token', this.props.token)
             .field('x:filename', file.name)
             .field('x:size', file.size)
@@ -117,9 +116,9 @@ var ReactQiniu = React.createClass({
 
 
         return (
-                <div className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave} onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                <input style={{display: 'none' }} type='file' multiple ref='fileInput' onChange={this.onDrop} accept={this.props.accept} />
-                {this.props.children}
+            <div className={className} style={style} onClick={this.onClick} onDragLeave={this.onDragLeave} onDragOver={this.onDragOver} onDrop={this.onDrop}>
+              <input style={{display: 'none' }} type='file' multiple ref='fileInput' onChange={this.onDrop} accept={this.props.accept} />
+              {this.props.children}
             </div>);
     }
 

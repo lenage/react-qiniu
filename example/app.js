@@ -26,7 +26,7 @@ const ReactQiniuExample = React.createClass({
         var files = this.state.files;
 
         return (
-            <div>
+            <div className='dropped-files'>
             <h3>Dropped files: </h3>
             <ul>
             {[].map.call(files, function (f, i) {
@@ -48,7 +48,7 @@ const ReactQiniuExample = React.createClass({
         var inputStyles = { marginTop: 30, width: 500};
         return (
             <div className="react-qiniu-example">
-              <Dropzone onDrop={this.onDrop} size={150} token={this.state.token}>
+              <Dropzone onDrop={this.onDrop} size={300} token={this.state.token} accept="image/*">
                 <div style={styles}> Try dropping some files here, or click files to upload. </div>
               </Dropzone>
             {this.showFiles()}
@@ -57,6 +57,6 @@ const ReactQiniuExample = React.createClass({
     }
 });
 
-React.render(<ReactQiniuExample />, document.body);
+React.render(<ReactQiniuExample />, document.getElementById('app'));
 
 export default ReactQiniuExample;
