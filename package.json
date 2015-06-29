@@ -7,6 +7,10 @@
     "test": "jest",
     "lint": "eslint ./; true"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lingochamp/react-qiniu.git"
+  },
   "keywords": [
     "react-component",
     "react",
