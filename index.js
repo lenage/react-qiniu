@@ -89,9 +89,10 @@ var ReactQiniu = React.createClass({
     upload: function(file) {
         if (!file || file.size === 0) return null;
         var url;
+        var key = file.preview.split('/').pop() + '.' + file.name.split('.').pop()
         var promise = request
             .post(this.props.uploadUrl)
-            .field('key', file.preview.split('/')[1])
+            .field('key', key)
             .field('token', this.props.token)
             .field('x:filename', file.name)
             .field('x:size', file.size)
