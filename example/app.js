@@ -30,6 +30,9 @@ const ReactQiniuExample = React.createClass({
             <h3>Dropped files: </h3>
             <ul>
             {[].map.call(files, function (f, i) {
+                // f is a element of files
+                // f.progress => return upload progress of file
+                // f.uploadPromise => return a Promise to handle uploading status(what you can do when upload failed)
                 var preview = '';
                 if (/image/.test(f.type)) {
                     preview = <img src={f.preview} />;

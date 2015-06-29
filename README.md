@@ -18,14 +18,27 @@ var React = require('react');
 var Qiniu = require('react-qiniu);
 
 var ReactQiniuDemo = React.createClass({
+    getInitialState () {
+        return {
+            files: [],
+            token: 'YOUR_UPLOAD_TOKEN'
+        };
+    },
     onDrop: function (files) {
+        this.setState({
+            files: files
+        });
+        // files is a FileList(https://developer.mozilla.org/en/docs/Web/API/FileList) Object
+        // and with each file, we attached two functions to handle upload progress and status
+        // file.progress => return upload progress of file
+        // file.uploadPromise => return a Promise to handle uploading status(what you can do when upload failed)
       console.log('Received files: ', files);
     },
 
     render: function () {
       return (
           <div>
-            <Qiniu onDrop={this.onDrop} size={150} token="YOUR_QINIU_TOKEN">
+            <Qiniu onDrop={this.onDrop} size={150} token={this.state.token}>
               <div>Try dropping some files here, or click to select files to upload.</div>
             </Qiniu>
           </div>
