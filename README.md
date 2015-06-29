@@ -4,7 +4,7 @@ React Component to upload file to [Qiniu](http://www.qiniu.com/)
 
 ![img](https://raw.githubusercontent.com/paramaggarwal/react-dropzone/master/screenshot.png)
 
-Demo avaiable soon
+Demo will avaiable soon
 
 ## Usage
 
