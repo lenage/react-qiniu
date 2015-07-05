@@ -49,6 +49,9 @@ var ReactQiniuDemo = React.createClass({
 React.render(<ReactQiniuDemo />, document.body);
 ```
 
+when upload, we will add a `promise` to file object, see [index.js](https://github.com/lenage/react-qiniu/blob/master/index.js#L68),
+so, you can deal with this promise to handle upload status. (do something when success/failure)
+
 see more in `example/app.js`
 
 ## Contributing
