@@ -15,7 +15,8 @@ var ReactQiniu = React.createClass({
         accept: React.PropTypes.string,
         multiple: React.PropTypes.bool,
         // Qiniu
-        uploadUrl: React.PropTypes.string
+        uploadUrl: React.PropTypes.string,
+        prefix: React.PropTypes.string
     },
 
     getDefaultProps: function() {
@@ -89,7 +90,10 @@ var ReactQiniu = React.createClass({
     upload: function(file) {
         if (!file || file.size === 0) return null;
         var url;
-        var key = file.preview.split('/').pop() + '.' + file.name.split('.').pop()
+        var key = file.preview.split('/').pop() + '.' + file.name.split('.').pop();
+        if (this.props.prefix) {
+            key = this.props.prefix  + key;
+        }
         var promise = request
             .post(this.props.uploadUrl)
             .field('key', key)

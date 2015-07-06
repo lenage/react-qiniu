@@ -21,7 +21,8 @@ var ReactQiniuDemo = React.createClass({
     getInitialState () {
         return {
             files: [],
-            token: 'YOUR_UPLOAD_TOKEN'
+            token: 'YOUR_UPLOAD_TOKEN',
+            prefix: 'YOUR_QINIU_KEY_PREFIX' // Optional
         };
     },
     onDrop: function (files) {
