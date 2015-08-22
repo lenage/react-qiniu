@@ -18,7 +18,7 @@ var React = require('react');
 var Qiniu = require('react-qiniu);
 
 var ReactQiniuDemo = React.createClass({
-    getInitialState () {
+    getInitialState: function () {
         return {
             files: [],
             token: 'YOUR_UPLOAD_TOKEN',
