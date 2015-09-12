@@ -2,7 +2,7 @@
 
 React Component to upload file to [Qiniu](http://www.qiniu.com/)
 
-Demo will avaiable soon
+See Demo: http://lenage.com/react-qiniu/
 
 ## Usage
 
