@@ -15,6 +15,8 @@ var ReactQiniu = React.createClass({
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
         token: React.PropTypes.string.isRequired,
+        // called before upload to set callback to files
+        onUpload: React.PropTypes.func,
         size: React.PropTypes.number,
         style: React.PropTypes.object,
         supportClick: React.PropTypes.bool,
@@ -69,6 +71,11 @@ var ReactQiniu = React.createClass({
         }
 
         var maxFiles = (this.props.multiple) ? files.length : 1;
+
+        if (this.props.onUpload) {
+            files = Array.prototype.slice.call(files, 0, maxFiles);
+            this.props.onUpload(files, e);
+        }
 
         for (var i = 0; i < maxFiles; i++) {
             files[i].preview = URL.createObjectURL(files[i]);

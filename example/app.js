@@ -7,12 +7,26 @@ const ReactQiniuExample = React.createClass({
     getInitialState () {
         return {
             files: [],
-            token: 'YOUR_QINIU_TOKEN'
+            token: '6qF2ejYiRzXlPoPO3eKwaWE3juLDyX5QgE1PEMJ-:3Ji3PPOaUYfs30-OFz7coPEL2Ws=:eyJzY29wZSI6ImVuYWdlLWNlc2hpIiwiZGVhZGxpbmUiOjE3NTczOTA0NTB9'
         };
     },
 
+    onUpload (files) {
+        let progresses = {};
+        let _this = this;
+        files.map(function (f) {
+            f.onprogress = function(e) {
+                progresses[f.preview] = e.percent;
+                console.log(e.percent);
+                _this.setState({progresses: progresses});
+                };
+        });
+        },
+
     onDrop (files) {
         console.log('Received files: ', files);
+        // This will not work because onDrop called after uploadFiles, so
+        // we need a funtion to set hook before call uploadFiles and attach file to function
         this.setState({
             files: files
         });
@@ -24,10 +38,12 @@ const ReactQiniuExample = React.createClass({
         }
 
         var files = this.state.files;
+        var progresses = this.state.progresses;
         let styles = {
             width: '600px',
             margin: '10px auto'
         }
+
         return (
            <div className='dropped-files' style={styles}>
             <h3>Dropped files: </h3>
@@ -37,12 +53,13 @@ const ReactQiniuExample = React.createClass({
                 // f.uploadPromise => return a Promise to handle uploading status(what you can do when upload failed)
                 // f.request => return super-agent request with uploading file
                 var preview = '';
+                var progress = progresses && progresses[f.preview]
                 if (/image/.test(f.type)) {
                     preview = <img src={f.preview} />;
                 } else if (/audio/.test(f.type)) {
                     preview = <audio src={f.preview} controls preload> </audio>;
                 }
-                return <li key={i}>{preview} {f.name + ' : ' + f.size + ' bytes.'}</li>;
+                return <li key={i}>{preview} {f.name + ' : ' + f.size/1000 + 'KB.'}   {(progress || 0) + '% uploaded'}</li>;
             })}
             </ul>
             </div>
@@ -62,7 +79,12 @@ const ReactQiniuExample = React.createClass({
         var inputStyles = { marginTop: 30, width: 500};
         return (
             <div className="react-qiniu-example">
-              <Dropzone onDrop={this.onDrop} size={300} token={this.state.token} accept="image/*" style={dropZoneStyles}>
+              <Dropzone onDrop={this.onDrop}
+                        onUpload={this.onUpload}
+                        size={300}
+                        token={this.state.token}
+                        accept="image/*"
+                        style={dropZoneStyles}>
                 <div style={styles}> Try dropping some files here, or click files to upload. </div>
               </Dropzone>
             {this.showFiles()}

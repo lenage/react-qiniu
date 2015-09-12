@@ -23,6 +23,16 @@ var ReactQiniuDemo = React.createClass({
             prefix: 'YOUR_QINIU_KEY_PREFIX' // Optional
         };
     },
+
+    onUpload: function (files) {
+        // set onprogress function before uploading
+        files.map(function (f) {
+            f.onprogress = function(e) {
+                console.log(e.percent);
+                };
+        });
+    },
+
     onDrop: function (files) {
         this.setState({
             files: files
@@ -39,7 +49,7 @@ var ReactQiniuDemo = React.createClass({
     render: function () {
       return (
           <div>
-            <Qiniu onDrop={this.onDrop} size={150} token={this.state.token}>
+            <Qiniu onDrop={this.onDrop} size={150} token={this.state.token} onUpload={this.onUpload}>
               <div>Try dropping some files here, or click to select files to upload.</div>
             </Qiniu>
           </div>
@@ -53,7 +63,7 @@ React.render(<ReactQiniuDemo />, document.body);
 when upload, we will add a `promise` to file object, see [index.js](https://github.com/lenage/react-qiniu/blob/master/index.js#L68),
 so, you can deal with this promise to handle upload status. (do something when success/failure)
 
-see more in `example/app.js`
+see more in [example/app.js](https://github.com/lenage/react-qiniu/blob/master/example/app.js)
 
 ## Contributing
 
