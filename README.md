@@ -2,8 +2,6 @@
 
 React Component to upload file to [Qiniu](http://www.qiniu.com/)
 
-![img](https://raw.githubusercontent.com/paramaggarwal/react-dropzone/master/screenshot.png)
-
 Demo will avaiable soon
 
 ## Usage
@@ -30,10 +28,11 @@ var ReactQiniuDemo = React.createClass({
             files: files
         });
         // files is a FileList(https://developer.mozilla.org/en/docs/Web/API/FileList) Object
-        // and with each file, we attached two functions to handle upload progress and status
-        // file.progress => return upload progress of file
+        // and with each file, we attached two functions to handle upload progress and result
+        // file.request => return super-agent uploading file request
         // file.uploadPromise => return a Promise to handle uploading status(what you can do when upload failed)
         // `react-qiniu` using bluebird, check bluebird API https://github.com/petkaantonov/bluebird/blob/master/API.md
+        // see more example in example/app.js
       console.log('Received files: ', files);
     },
 

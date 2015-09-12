@@ -1,8 +1,14 @@
 /*global URL */
 
+'use strict';
 var React = require('react');
 var Promise = require('bluebird');
 var request = require('superagent-bluebird-promise');
+
+var isFunction = function (fn) {
+ var getType = {};
+ return fn && getType.toString.call(fn) === '[object Function]';
+};
 
 var ReactQiniu = React.createClass({
     // based on https://github.com/paramaggarwal/react-dropzone
@@ -66,7 +72,8 @@ var ReactQiniu = React.createClass({
 
         for (var i = 0; i < maxFiles; i++) {
             files[i].preview = URL.createObjectURL(files[i]);
-            files[i].uploadPromise = this.upload(files[i]);
+            files[i].request = this.upload(files[i]);
+            files[i].uploadPromise = files[i].request.promise();
         }
 
         if (this.props.onDrop) {
@@ -89,22 +96,20 @@ var ReactQiniu = React.createClass({
 
     upload: function(file) {
         if (!file || file.size === 0) return null;
-        var url;
         var key = file.preview.split('/').pop() + '.' + file.name.split('.').pop();
         if (this.props.prefix) {
             key = this.props.prefix  + key;
         }
-        var promise = request
+        var r = request
             .post(this.props.uploadUrl)
             .field('key', key)
             .field('token', this.props.token)
             .field('x:filename', file.name)
             .field('x:size', file.size)
             .attach('file', file, file.name)
-            .set('Accept', 'application/json')
-            .on('progress',  function (e) { file.progress = e.percent;})
-            .promise()
-        return promise;
+            .set('Accept', 'application/json');
+        if (isFunction(file.onprogress)) { r.on('progress', file.onprogress); }
+        return r;
     },
 
     render: function() {

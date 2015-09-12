@@ -7,7 +7,7 @@ const ReactQiniuExample = React.createClass({
     getInitialState () {
         return {
             files: [],
-            token: 'YOUR_UPLOAD_TOKEN'
+            token: 'YOUR_QINIU_TOKEN'
         };
     },
 
@@ -24,15 +24,18 @@ const ReactQiniuExample = React.createClass({
         }
 
         var files = this.state.files;
-
+        let styles = {
+            width: '600px',
+            margin: '10px auto'
+        }
         return (
-            <div className='dropped-files'>
+           <div className='dropped-files' style={styles}>
             <h3>Dropped files: </h3>
             <ul>
             {[].map.call(files, function (f, i) {
                 // f is a element of files
-                // f.progress => return upload progress of file
                 // f.uploadPromise => return a Promise to handle uploading status(what you can do when upload failed)
+                // f.request => return super-agent request with uploading file
                 var preview = '';
                 if (/image/.test(f.type)) {
                     preview = <img src={f.preview} />;
@@ -48,10 +51,18 @@ const ReactQiniuExample = React.createClass({
 
     render () {
         var styles = { padding: 30};
+        var dropZoneStyles = {
+            margin: '20px auto',
+            border: '2px dashed #ccc',
+            borderRadius: '5px',
+            width: '300px',
+            height: '200px',
+            color: '#aaa'
+        }
         var inputStyles = { marginTop: 30, width: 500};
         return (
             <div className="react-qiniu-example">
-              <Dropzone onDrop={this.onDrop} size={300} token={this.state.token} accept="image/*">
+              <Dropzone onDrop={this.onDrop} size={300} token={this.state.token} accept="image/*" style={dropZoneStyles}>
                 <div style={styles}> Try dropping some files here, or click files to upload. </div>
               </Dropzone>
             {this.showFiles()}
