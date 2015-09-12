@@ -91,7 +91,7 @@ var ReactQiniu = React.createClass({
         if (!file || file.size === 0) return null;
         var url;
         var key = file.preview.split('/').pop() + '.' + file.name.split('.').pop();
-        var me = this;
+        var _this = this;
         if (this.props.prefix) {
             key = this.props.prefix  + key;
         }
@@ -104,8 +104,8 @@ var ReactQiniu = React.createClass({
             .attach('file', file, file.name)
             .set('Accept', 'application/json')
             .on('progress',  function (e) {
-                if(me.isFunction(file.progress)){
-                    file.progress(e.percent);
+                if(_this.isFunction(file.onprogress)){
+                    file.onprogress(e.percent);
                 }
             })
             .promise()
