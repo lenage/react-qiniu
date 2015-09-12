@@ -7,7 +7,7 @@ const ReactQiniuExample = React.createClass({
     getInitialState () {
         return {
             files: [],
-            token: '6qF2ejYiRzXlPoPO3eKwaWE3juLDyX5QgE1PEMJ-:3Ji3PPOaUYfs30-OFz7coPEL2Ws=:eyJzY29wZSI6ImVuYWdlLWNlc2hpIiwiZGVhZGxpbmUiOjE3NTczOTA0NTB9'
+            token: 'YOUR_QINIU_TOKEN'
         };
     },
 

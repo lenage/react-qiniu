@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "prepublish": "cd .. && npm install react && cd - && browserify app.js > script.js"
+    "prepublish": "cd .. && npm install react && cd - && browserify --debug app.js > script.js"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
