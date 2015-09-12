@@ -2,7 +2,6 @@
 
 'use strict';
 var React = require('react');
-var Promise = require('bluebird');
 var request = require('superagent-bluebird-promise');
 
 var isFunction = function (fn) {
@@ -90,7 +89,7 @@ var ReactQiniu = React.createClass({
     },
 
     onClick: function () {
-        if (this.props.supportClick === true) {
+        if (this.props.supportClick) {
             this.open();
         }
     },
