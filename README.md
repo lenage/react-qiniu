@@ -15,7 +15,7 @@ Optionally pass in a size property to configure the size of the Drop Zone.
 
 ```jsx
 var React = require('react');
-var Qiniu = require('react-qiniu);
+var Qiniu = require('react-qiniu');
 
 var ReactQiniuDemo = React.createClass({
     getInitialState: function () {
@@ -33,6 +33,7 @@ var ReactQiniuDemo = React.createClass({
         // and with each file, we attached two functions to handle upload progress and status
         // file.progress => return upload progress of file
         // file.uploadPromise => return a Promise to handle uploading status(what you can do when upload failed)
+        // `react-qiniu` using bluebird, check bluebird API https://github.com/petkaantonov/bluebird/blob/master/API.md
       console.log('Received files: ', files);
     },
 
