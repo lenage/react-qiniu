@@ -2,6 +2,7 @@
 
 'use strict';
 var React = require('react');
+var ReactDOM = require('react-dom')
 var request = require('superagent-bluebird-promise');
 
 var isFunction = function (fn) {
@@ -95,7 +96,7 @@ var ReactQiniu = React.createClass({
     },
 
     open: function() {
-        var fileInput = React.findDOMNode(this.refs.fileInput);
+        var fileInput = ReactDOM.findDOMNode(this.refs.fileInput);
         fileInput.value = null;
         fileInput.click();
     },
