@@ -32,7 +32,8 @@
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.5.2",
     "jest-cli": "^0.4.13",
-    "react": "^0.13.3"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
