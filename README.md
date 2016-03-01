@@ -76,6 +76,7 @@ see more in [example/app.js](https://github.com/lenage/react-qiniu/blob/master/e
 ## Thanks
 
 [@paramaggarwal](https://github.com/paramaggarwal/react-dropzone)
+[@mingxinstar](https://github.com/mingxinstar)
 
 ## License
 
