@@ -24,6 +24,7 @@ var ReactQiniu = React.createClass({
         multiple: React.PropTypes.bool,
         // Qiniu
         uploadUrl: React.PropTypes.string,
+        uploadKey: React.PropTypes.string,
         prefix: React.PropTypes.string
     },
 
@@ -107,6 +108,11 @@ var ReactQiniu = React.createClass({
         if (this.props.prefix) {
             key = this.props.prefix  + key;
         }
+
+        if(this.props.uploadKey){
+          key = this.props.uploadKey;
+        }
+
         var r = request
             .post(this.props.uploadUrl)
             .field('key', key)

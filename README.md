@@ -20,6 +20,7 @@ var ReactQiniuDemo = React.createClass({
         return {
             files: [],
             token: 'YOUR_UPLOAD_TOKEN',
+            uploadKey: 'YOUR_CUSTOM_UPLOAD_KEY', // Optional
             prefix: 'YOUR_QINIU_KEY_PREFIX' // Optional
         };
     },
@@ -49,7 +50,7 @@ var ReactQiniuDemo = React.createClass({
     render: function () {
       return (
           <div>
-            <Qiniu onDrop={this.onDrop} size={150} token={this.state.token} onUpload={this.onUpload}>
+            <Qiniu onDrop={this.onDrop} size={150} token={this.state.token} uploadKey={this.state.uploadKey} onUpload={this.onUpload}>
               <div>Try dropping some files here, or click to select files to upload.</div>
             </Qiniu>
           </div>
