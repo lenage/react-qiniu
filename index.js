@@ -5,9 +5,9 @@ var React = require('react');
 var ReactDOM = require('react-dom')
 var request = require('superagent-bluebird-promise');
 
-var isFunction = function (fn) {
- var getType = {};
- return fn && getType.toString.call(fn) === '[object Function]';
+var isFunction = function(fn) {
+    var getType = {};
+    return fn && getType.toString.call(fn) === '[object Function]';
 };
 
 var ReactQiniu = React.createClass({
@@ -29,40 +29,28 @@ var ReactQiniu = React.createClass({
     },
 
     getDefaultProps: function() {
-        return {
-            supportClick: true,
-            multiple: true,
-            uploadUrl: 'http://upload.qiniu.com/'
-        };
+        return {supportClick: true, multiple: true, uploadUrl: 'http://upload.qiniu.com/'};
     },
 
     getInitialState: function() {
-        return {
-            isDragActive: false
-        };
+        return {isDragActive: false};
     },
 
     onDragLeave: function(e) {
-        this.setState({
-            isDragActive: false
-        });
+        this.setState({isDragActive: false});
     },
 
     onDragOver: function(e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
 
-        this.setState({
-            isDragActive: true
-        });
+        this.setState({isDragActive: true});
     },
 
     onDrop: function(e) {
         e.preventDefault();
 
-        this.setState({
-            isDragActive: false
-        });
+        this.setState({isDragActive: false});
 
         var files;
         if (e.dataTransfer) {
@@ -71,7 +59,9 @@ var ReactQiniu = React.createClass({
             files = e.target.files;
         }
 
-        var maxFiles = (this.props.multiple) ? files.length : 1;
+        var maxFiles = (this.props.multiple)
+            ? files.length
+            : 1;
 
         if (this.props.onUpload) {
             files = Array.prototype.slice.call(files, 0, maxFiles);
@@ -90,7 +80,7 @@ var ReactQiniu = React.createClass({
         }
     },
 
-    onClick: function () {
+    onClick: function() {
         if (this.props.supportClick) {
             this.open();
         }
@@ -103,26 +93,27 @@ var ReactQiniu = React.createClass({
     },
 
     upload: function(file) {
-        if (!file || file.size === 0) return null;
+        if (!file || file.size === 0) 
+            return null;
         var key = file.preview.split('/').pop() + '.' + file.name.split('.').pop();
         if (this.props.prefix) {
-            key = this.props.prefix  + key;
+            key = this.props.prefix + key;
         }
 
-        if(this.props.uploadKey){
-          key = this.props.uploadKey;
+        if (this.props.uploadKey) {
+            key = this.props.uploadKey;
         }
+        this.setState({key: key})
 
-        var r = request
-            .post(this.props.uploadUrl)
-            .field('key', key)
-            .field('token', this.props.token)
-            .field('x:filename', file.name)
-            .field('x:size', file.size)
-            .attach('file', file, file.name)
-            .set('Accept', 'application/json');
-        if (isFunction(file.onprogress)) { r.on('progress', file.onprogress); }
+        var r = request.post(this.props.uploadUrl).field('key', key).field('token', this.props.token).field('x:filename', file.name).field('x:size', file.size).attach('file', file, file.name).set('Accept', 'application/json');
+        if (isFunction(file.onprogress)) {
+            r.on('progress', file.onprogress);
+        }
         return r;
+    },
+
+    getKey: function() {
+        return this.state.key
     },
 
     render: function() {
@@ -134,16 +125,28 @@ var ReactQiniu = React.createClass({
         var style = this.props.style || {
             width: this.props.size || 100,
             height: this.props.size || 100,
-            borderStyle: this.state.isDragActive ? 'solid' : 'dashed'
+            borderStyle: this.state.isDragActive
+                ? 'solid'
+                : 'dashed'
         };
 
-
-        return (
-            React.createElement('div', {className: className, style: style, onClick: this.onClick, onDragLeave: this.onDragLeave, onDragOver: this.onDragOver, onDrop: this.onDrop},
-                                React.createElement('input', {style: {display: 'none'}, type: 'file', multiple: this.props.multiple, ref: 'fileInput', onChange: this.onDrop, accept: this.props.accept}),
-                                this.props.children
-                               )
-        );
+        return (React.createElement('div', {
+            className: className,
+            style: style,
+            onClick: this.onClick,
+            onDragLeave: this.onDragLeave,
+            onDragOver: this.onDragOver,
+            onDrop: this.onDrop
+        }, React.createElement('input', {
+            style: {
+                display: 'none'
+            },
+            type: 'file',
+            multiple: this.props.multiple,
+            ref: 'fileInput',
+            onChange: this.onDrop,
+            accept: this.props.accept
+        }), this.props.children));
     }
 
 });
