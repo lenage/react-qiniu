@@ -32,7 +32,7 @@ var ReactQiniu = React.createClass({
         return {
             supportClick: true,
             multiple: true,
-            uploadUrl: 'http://upload.qiniu.com/'
+            uploadUrl: 'https://up.qbox.me/'
         };
     },
 
