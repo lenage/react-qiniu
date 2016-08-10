@@ -29,10 +29,16 @@ var ReactQiniu = React.createClass({
     },
 
     getDefaultProps: function() {
+        if (window.location.protocol === 'https:') {
+          uploadUrl = 'https://up.qbox.me/'
+        } else {
+          uploadUrl = 'http://upload.qiniu.com'
+        }
+
         return {
             supportClick: true,
             multiple: true,
-            uploadUrl: 'https://up.qbox.me/'
+            uploadUrl: uploadUrl
         };
     },
 
