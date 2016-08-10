@@ -1,6 +1,6 @@
 {
   "name": "react-qiniu",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A React Component to upload file to Qiniu ",
   "main": "index.js",
   "scripts": {
