@@ -12,12 +12,12 @@ var isFunction = function (fn) {
 function formatMaxSize(size){
     size=size.toString().toUpperCase();
     var bsize,m=size.indexOf('M'),k=size.indexOf('K');
-    if(m>-1){
-        bsize=parseFloat(size.slice(0,m))*1024*1024
-    }else if(k>-1){
-        bsize=parseFloat(size.slice(0,k))*1024
+    if(m > -1){
+        bsize = parseFloat(size.slice(0, m)) * 1024 * 1024
+    }else if(k > -1){
+        bsize = parseFloat(size.slice(0, k)) * 1024
     }else{
-        bsize=parseFloat(size)
+        bsize = parseFloat(size)
     }
     return Math.abs(bsize)
 }
@@ -36,8 +36,8 @@ var ReactQiniu = React.createClass({
         // Qiniu
         uploadUrl: React.PropTypes.string,
         prefix: React.PropTypes.string,
-        //props to check File Size before upload
-        maxSize:React.PropTypes.string, //example:'2Mb','30k'...
+        //props to check File Size before upload.example:'2Mb','30k'...
+        maxSize:React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -91,11 +91,11 @@ var ReactQiniu = React.createClass({
         }
         var maxSizeLimit=formatMaxSize(this.props.maxSize)
         for (var i = 0; i < maxFiles; i++) {
-            if( maxSizeLimit &&files[i].size>maxSizeLimit){
+            if( maxSizeLimit && files[i].size > maxSizeLimit){
                console.trace && console.trace(new Error('文件大小错误!'))
                 this.props.onError && this.props.onError({
                    coed:1,
-                   message:'上传的文件大小超出了限制:'+this.props.maxSize
+                   message:'上传的文件大小超出了限制:' + this.props.maxSize
                })
             }else{
                 files[i].preview = URL.createObjectURL(files[i]);
