@@ -9,7 +9,18 @@ var isFunction = function (fn) {
  var getType = {};
  return fn && getType.toString.call(fn) === '[object Function]';
 };
-
+function formatMaxSize(size){
+    size=size.toString().toUpperCase();
+    var bsize,m=size.indexOf('M'),k=size.indexOf('K');
+    if(m > -1){
+        bsize = parseFloat(size.slice(0, m)) * 1024 * 1024
+    }else if(k > -1){
+        bsize = parseFloat(size.slice(0, k)) * 1024
+    }else{
+        bsize = parseFloat(size)
+    }
+    return Math.abs(bsize)
+}
 var ReactQiniu = React.createClass({
     // based on https://github.com/paramaggarwal/react-dropzone
     propTypes: {
@@ -24,8 +35,9 @@ var ReactQiniu = React.createClass({
         multiple: React.PropTypes.bool,
         // Qiniu
         uploadUrl: React.PropTypes.string,
-        uploadKey: React.PropTypes.string,
-        prefix: React.PropTypes.string
+        prefix: React.PropTypes.string,
+        //props to check File Size before upload.example:'2Mb','30k'...
+        maxSize:React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -82,11 +94,19 @@ var ReactQiniu = React.createClass({
             files = Array.prototype.slice.call(files, 0, maxFiles);
             this.props.onUpload(files, e);
         }
-
+        var maxSizeLimit=formatMaxSize(this.props.maxSize)
         for (var i = 0; i < maxFiles; i++) {
-            files[i].preview = URL.createObjectURL(files[i]);
-            files[i].request = this.upload(files[i]);
-            files[i].uploadPromise = files[i].request.promise();
+            if( maxSizeLimit && files[i].size > maxSizeLimit){
+               console.trace && console.trace(new Error('文件大小错误!'))
+                this.props.onError && this.props.onError({
+                   coed:1,
+                   message:'上传的文件大小超出了限制:' + this.props.maxSize
+               })
+            }else{
+                files[i].preview = URL.createObjectURL(files[i]);
+                files[i].request = this.upload(files[i]);
+                files[i].uploadPromise = files[i].request.promise();
+            }
         }
 
         if (this.props.onDrop) {
@@ -113,11 +133,6 @@ var ReactQiniu = React.createClass({
         if (this.props.prefix) {
             key = this.props.prefix  + key;
         }
-
-        if(this.props.uploadKey){
-          key = this.props.uploadKey;
-        }
-
         var r = request
             .post(this.props.uploadUrl)
             .field('key', key)
