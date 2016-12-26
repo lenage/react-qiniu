@@ -33,6 +33,7 @@ var ReactQiniu = React.createClass({
         supportClick: React.PropTypes.bool,
         accept: React.PropTypes.string,
         multiple: React.PropTypes.bool,
+        autoUpload: React.PropTypes.bool,
         // Qiniu
         uploadUrl: React.PropTypes.string,
         prefix: React.PropTypes.string,
@@ -49,7 +50,8 @@ var ReactQiniu = React.createClass({
         return {
             supportClick: true,
             multiple: true,
-            uploadUrl: uploadUrl
+            uploadUrl: uploadUrl,
+            autoUpload: true
         };
     },
 
@@ -105,7 +107,14 @@ var ReactQiniu = React.createClass({
             }else{
                 files[i].preview = URL.createObjectURL(files[i]);
                 files[i].request = this.upload(files[i]);
-                files[i].uploadPromise = files[i].request.promise();
+                if (this.props.autoUpload)
+                {
+                    files[i].uploadPromise = files[i].request.promise();
+                }
+                else
+                {
+                    files[i].upload = files[i].request.promise.bind(files[i].request);
+                }
             }
         }
 
