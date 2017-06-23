@@ -35,8 +35,7 @@ var ReactQiniu = React.createClass({
         multiple: PropTypes.bool,
         // Qiniu
         uploadUrl: PropTypes.string,
-        uploadKey: PropTypes.string,
-        prefix: PropTypes.string
+        prefix: PropTypes.string,
         //props to check File Size before upload.example:'2Mb','30k'...
         maxSize: PropTypes.string
     },
