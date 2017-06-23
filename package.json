@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.0.0",
+    "prop-types": "^15.5.10",
     "superagent": "^1.2.0",
     "superagent-bluebird-promise": "^3.0.2"
   },

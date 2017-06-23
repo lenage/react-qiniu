@@ -4,7 +4,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom')
 var request = require('superagent-bluebird-promise');
-
+var PropTypes = require('prop-types');
 var isFunction = function (fn) {
  var getType = {};
  return fn && getType.toString.call(fn) === '[object Function]';
@@ -13,19 +13,19 @@ var isFunction = function (fn) {
 var ReactQiniu = React.createClass({
     // based on https://github.com/paramaggarwal/react-dropzone
     propTypes: {
-        onDrop: React.PropTypes.func.isRequired,
-        token: React.PropTypes.string.isRequired,
+        onDrop: PropTypes.func.isRequired,
+        token: PropTypes.string.isRequired,
         // called before upload to set callback to files
-        onUpload: React.PropTypes.func,
-        size: React.PropTypes.number,
-        style: React.PropTypes.object,
-        supportClick: React.PropTypes.bool,
-        accept: React.PropTypes.string,
-        multiple: React.PropTypes.bool,
+        onUpload: PropTypes.func,
+        size: PropTypes.number,
+        style: PropTypes.object,
+        supportClick: PropTypes.bool,
+        accept: PropTypes.string,
+        multiple: PropTypes.bool,
         // Qiniu
-        uploadUrl: React.PropTypes.string,
-        uploadKey: React.PropTypes.string,
-        prefix: React.PropTypes.string
+        uploadUrl: PropTypes.string,
+        uploadKey: PropTypes.string,
+        prefix: PropTypes.string
     },
 
     getDefaultProps: function() {
