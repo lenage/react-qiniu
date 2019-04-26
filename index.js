@@ -3,6 +3,9 @@
  * At 2019/4/26
  * support React after version 15.4
  */
+
+/*global URL */
+
 'use strict';
 
 import React from 'react'
@@ -16,6 +19,19 @@ var isFunction = function (fn) {
  return fn && getType.toString.call(fn) === '[object Function]';
 };
 
+// function formatMaxSize(size){
+//   size=size.toString().toUpperCase();
+//   var bsize,m=size.indexOf('M'),k=size.indexOf('K');
+//   if(m > -1){
+//       bsize = parseFloat(size.slice(0, m)) * 1024 * 1024
+//   }else if(k > -1){
+//       bsize = parseFloat(size.slice(0, k)) * 1024
+//   }else{
+//       bsize = parseFloat(size)
+//   }
+//   return Math.abs(bsize)
+// }
+
 var ReactQiniu = createReactClass({
     // based on https://github.com/paramaggarwal/react-dropzone
     
@@ -24,7 +40,6 @@ var ReactQiniu = createReactClass({
         if (window.location.protocol === 'https:') {
           uploadUrl = 'https://up.qbox.me/'
         }
-
         return {
             supportClick: true,
             multiple: true,
@@ -74,10 +89,20 @@ var ReactQiniu = createReactClass({
             this.props.onUpload(files, e);
         }
 
+        // var maxSizeLimit = formatMaxSize(this.props.maxSize)
+
         for (var i = 0; i < maxFiles; i++) {
-            files[i].preview = URL.createObjectURL(files[i]);
-            files[i].request = this.upload(files[i]);
-            files[i].uploadPromise = files[i].request.promise();
+        //   if( maxSizeLimit && files[i].size > maxSizeLimit){
+        //     console.trace && console.trace(new Error('文件大小错误!'))
+        //      this.props.onError && this.props.onError({
+        //         coed:1,
+        //         message:'上传的文件大小超出了限制:' + this.props.maxSize
+        //     })
+        //  }else{
+          files[i].preview = URL.createObjectURL(files[i]);
+          files[i].request = this.upload(files[i]);
+          files[i].uploadPromise = files[i].request.promise();
+         //}
         }
 
         if (this.props.onDrop) {
