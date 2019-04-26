@@ -23,6 +23,8 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.0.0",
+    "create-react-class": "^15.6.3",
+    "prop-types": "^15.7.2",
     "superagent": "^1.2.0",
     "superagent-bluebird-promise": "^3.0.2"
   },
@@ -32,8 +34,8 @@
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.5.2",
     "jest-cli": "^0.4.13",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "^0.14.9",
+    "react-dom": "^0.14.9"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
