@@ -1,45 +1,24 @@
-/*global URL */
-
+/**
+ * Modified by Sirosong   <277702281@qq.com>
+ * At 2019/4/26
+ * support React after version 15.4
+ */
 'use strict';
-var React = require('react');
-var ReactDOM = require('react-dom')
-var request = require('superagent-bluebird-promise');
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
+import request from 'superagent-bluebird-promise'
 
 var isFunction = function (fn) {
  var getType = {};
  return fn && getType.toString.call(fn) === '[object Function]';
 };
-function formatMaxSize(size){
-    size=size.toString().toUpperCase();
-    var bsize,m=size.indexOf('M'),k=size.indexOf('K');
-    if(m > -1){
-        bsize = parseFloat(size.slice(0, m)) * 1024 * 1024
-    }else if(k > -1){
-        bsize = parseFloat(size.slice(0, k)) * 1024
-    }else{
-        bsize = parseFloat(size)
-    }
-    return Math.abs(bsize)
-}
-var ReactQiniu = React.createClass({
-    // based on https://github.com/paramaggarwal/react-dropzone
-    propTypes: {
-        onDrop: React.PropTypes.func.isRequired,
-        token: React.PropTypes.string.isRequired,
-        // called before upload to set callback to files
-        onUpload: React.PropTypes.func,
-        size: React.PropTypes.number,
-        style: React.PropTypes.object,
-        supportClick: React.PropTypes.bool,
-        accept: React.PropTypes.string,
-        multiple: React.PropTypes.bool,
-        // Qiniu
-        uploadUrl: React.PropTypes.string,
-        prefix: React.PropTypes.string,
-        //props to check File Size before upload.example:'2Mb','30k'...
-        maxSize:React.PropTypes.string,
-    },
 
+var ReactQiniu = createReactClass({
+    // based on https://github.com/paramaggarwal/react-dropzone
+    
     getDefaultProps: function() {
         var uploadUrl = 'http://upload.qiniu.com'
         if (window.location.protocol === 'https:') {
@@ -94,19 +73,11 @@ var ReactQiniu = React.createClass({
             files = Array.prototype.slice.call(files, 0, maxFiles);
             this.props.onUpload(files, e);
         }
-        var maxSizeLimit=formatMaxSize(this.props.maxSize)
+
         for (var i = 0; i < maxFiles; i++) {
-            if( maxSizeLimit && files[i].size > maxSizeLimit){
-               console.trace && console.trace(new Error('文件大小错误!'))
-                this.props.onError && this.props.onError({
-                   coed:1,
-                   message:'上传的文件大小超出了限制:' + this.props.maxSize
-               })
-            }else{
-                files[i].preview = URL.createObjectURL(files[i]);
-                files[i].request = this.upload(files[i]);
-                files[i].uploadPromise = files[i].request.promise();
-            }
+            files[i].preview = URL.createObjectURL(files[i]);
+            files[i].request = this.upload(files[i]);
+            files[i].uploadPromise = files[i].request.promise();
         }
 
         if (this.props.onDrop) {
@@ -133,6 +104,11 @@ var ReactQiniu = React.createClass({
         if (this.props.prefix) {
             key = this.props.prefix  + key;
         }
+
+        if(this.props.uploadKey){
+          key = this.props.uploadKey;
+        }
+
         var r = request
             .post(this.props.uploadUrl)
             .field('key', key)
@@ -159,13 +135,48 @@ var ReactQiniu = React.createClass({
 
 
         return (
-            React.createElement('div', {className: className, style: style, onClick: this.onClick, onDragLeave: this.onDragLeave, onDragOver: this.onDragOver, onDrop: this.onDrop},
-                                React.createElement('input', {style: {display: 'none'}, type: 'file', multiple: this.props.multiple, ref: 'fileInput', onChange: this.onDrop, accept: this.props.accept}),
-                                this.props.children
-                               )
+            React.createElement(
+              'div',
+              {
+                className: className, 
+                style: style, 
+                onClick: this.onClick, 
+                onDragLeave: this.onDragLeave, 
+                onDragOver: this.onDragOver, 
+                onDrop: this.onDrop
+              },
+              React.createElement(
+                'input',
+                {
+                  style: {display: 'none'}, 
+                  type: 'file', 
+                  multiple: this.props.multiple, 
+                  ref: 'fileInput', 
+                  onChange: this.onDrop, 
+                  accept: this.props.accept
+                }
+              ),
+              this.props.children
+            )
         );
     }
 
 });
 
-module.exports = ReactQiniu;
+ReactQiniu.propTypes = {
+  onDrop: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
+  // called before upload to set callback to files
+  onUpload: PropTypes.func,
+  size: PropTypes.number,
+  style: PropTypes.object,
+  supportClick: PropTypes.bool,
+  accept: PropTypes.string,
+  multiple: PropTypes.bool,
+  // Qiniu
+  uploadUrl: PropTypes.string,
+  uploadKey: PropTypes.string,
+  prefix: PropTypes.string
+}
+
+export default ReactQiniu;

@@ -1,15 +1,73 @@
 {
-  "name": "react-qiniu",
-  "version": "1.5.0",
-  "description": "A React Component to upload file to Qiniu ",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "lint": "eslint ./; true"
+  "_from": "react-qiniu",
+  "_id": "react-qiniu@1.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-giiLTa/2ukNEvudN6gC/F0uJtWk=",
+  "_location": "/react-qiniu",
+  "_phantomChildren": {
+    "async": "1.5.2",
+    "combined-stream": "1.0.7",
+    "core-util-is": "1.0.2",
+    "debug": "2.6.9",
+    "inherits": "2.0.3",
+    "isarray": "0.0.1",
+    "methods": "1.1.2",
+    "mime-types": "2.1.23",
+    "reduce-component": "1.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lingochamp/react-qiniu.git"
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-qiniu",
+    "name": "react-qiniu",
+    "escapedName": "react-qiniu",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://npmjs.7k7k.com/react-qiniu/-/react-qiniu-1.5.0.tgz",
+  "_shasum": "82288b4daff6ba4344bee74dea00bf174b89b569",
+  "_spec": "react-qiniu",
+  "_where": "F:\\workSpace\\open-in",
+  "author": {
+    "name": "Yuan He",
+    "email": "yuan@liulishuo.com"
+  },
+  "bugs": {
+    "url": "https://github.com/lingochamp/react-qiniu/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "bluebird": "^3.0.0",
+    "create-react-class": "^15.6.3",
+    "prop-types": "^15.7.2",
+    "superagent": "^1.2.0",
+    "superagent-bluebird-promise": "^3.0.2"
+  },
+  "deprecated": false,
+  "description": "A React Component to upload file to Qiniu ",
+  "devDependencies": {
+    "babel-eslint": "^3.1.18",
+    "babel-jest": "^5.3.0",
+    "eslint": "^0.23.0",
+    "eslint-plugin-react": "^2.5.2",
+    "jest-cli": "^0.4.13",
+    "react": "^0.14.9",
+    "react-dom": "^0.14.0"
+  },
+  "homepage": "https://github.com/lingochamp/react-qiniu#readme",
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ],
+    "testPathDirs": [
+      "<rootDir>"
+    ]
   },
   "keywords": [
     "react-component",
@@ -19,29 +77,16 @@
     "drag",
     "drop"
   ],
-  "author": "Yuan He <yuan@liulishuo.com>",
   "license": "MIT",
-  "dependencies": {
-    "bluebird": "^3.0.0",
-    "superagent": "^1.2.0",
-    "superagent-bluebird-promise": "^3.0.2"
+  "main": "index.js",
+  "name": "react-qiniu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lingochamp/react-qiniu.git"
   },
-  "devDependencies": {
-    "babel-eslint": "^3.1.18",
-    "babel-jest": "^5.3.0",
-    "eslint": "^0.23.0",
-    "eslint-plugin-react": "^2.5.2",
-    "jest-cli": "^0.4.13",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+  "scripts": {
+    "lint": "eslint ./; true",
+    "test": "jest"
   },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react"
-    ],
-    "testPathDirs": [
-      "<rootDir>"
-    ]
-  }
+  "version": "1.5.0"
 }
